@@ -4,6 +4,8 @@ var makeGlidingDancer = function(top, left, timeBetweenSteps) {
   this.left = left;
   this.timeBetweenSteps = 5;
   this.glideDirection = 'right';
+  this.$node.css({"border-color":"blue"});
+  this.dancerType = 'gliding';
 
 };
 
@@ -22,14 +24,22 @@ makeGlidingDancer.prototype.step = function (){
     this.left = this.left - 1;
   }
 
-  if(this.left+20 >= $("body").width()) {
-    this.glideDirection = "left";
-  }
+  if(this.glideDirection === "none"){
 
-  if(this.left < 0) {
+  } else if(this.left > $("body").width()-20) {
+    this.glideDirection = "left";
+  } else if(this.left < 0) {
     this.glideDirection = "right";
   }
 
 
+
   this.setPosition(this.top, this.left);
+};
+
+makeGlidingDancer.prototype.lineUp = function(dancerIndex){
+  this.glideDirection = "none";
+  this.top = ($("body").height())/2;
+  this.left = 100 + dancerIndex * 25;
+
 };

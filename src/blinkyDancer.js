@@ -1,6 +1,8 @@
 var makeBlinkyDancer = function(top, left, timeBetweenSteps) {
   makeDancer.call(this, top, left, timeBetweenSteps);
-
+  this.top = top;
+  this.left = left;
+  this.dancerType = 'blinky';
 };
 
 makeBlinkyDancer.prototype = Object.create(makeDancer.prototype);
@@ -19,4 +21,10 @@ makeBlinkyDancer.prototype.step = function() {
     // See http://api.jquery.com/category/effects/ for this and
     // other effects you can use on a jQuery-wrapped html tag.
     this.$node.toggle();
+};
+
+makeBlinkyDancer.prototype.lineUp = function(dancerIndex){
+  this.top = ($("body").height())/2;
+  this.left = 100 + dancerIndex * 25;
+  this.setPosition(this.top,this.left);
 };

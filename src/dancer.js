@@ -16,6 +16,15 @@ var makeDancer = function(top, left, timeBetweenSteps) {
     // it just schedules the next step
     setTimeout(this.step.bind(this), this.timeBetweenSteps);
 
+    for (var i = 0 ; i < window.dancers.length ; i++) {
+      if (dancers[i].dancerType !== this.dancerType) {
+        if (Math.abs(dancers[i].left - this.left) < 20) {
+          if (Math.abs(dancers[i].top - this.top) < 20) {
+            this.bumpDancer();
+          }
+        }
+      }
+    }
   };
 
 makeDancer.prototype.setPosition = function(top, left) {
@@ -27,3 +36,8 @@ makeDancer.prototype.setPosition = function(top, left) {
   };
     this.$node.css(styleSettings);
   };
+
+makeDancer.prototype.bumpDancer = function(){
+  var randomColor = Math.floor(Math.random()*16777215).toString(16);
+  this.$node.css({"border-color":"#"+randomColor});
+}
